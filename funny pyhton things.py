@@ -1,15 +1,24 @@
 import pyautogui as p
 import time as t
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+t.sleep(1)
 
 def openPython():
     p.press('win')
     p.write('python')
     p.press('enter')
-    t.sleep(2)
-    findFile = p.locateOnScreen('pythonFindFile.png')
-    p.click(findFile)
-    findNewFile = p.locateOnScreen('pythonFindNewFile.png')
-    p.click(findNewFile)
+    t.sleep(1)
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            if file.endswith('pythonFindFile.png'):
+                findFile = p.locateOnScreen(root+'/'+str(file))
+                p.click(findFile)
+            elif file.endswith('pythonFindNewFile.png'):
+                findNewFile = p.locateOnScreen(root+'/'+str(file))
+                p.click(findNewFile)
 
 def findOddOrEven(owo):
     p.press('enter')
